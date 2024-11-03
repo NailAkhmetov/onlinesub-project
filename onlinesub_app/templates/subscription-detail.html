@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ subscription.title }}{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<section class="subscription-detail">
+    <div class="container">
+        <h1 class="title">{{ subscription.title }}</h1>
+        <h2 class="title">{{ subscription.period }}</h2>
+        <h3 class="title">{{ subscription.cost }} &#36;</h3>
+        <p class="subscription-detail__content"><strong>Детали индивидуальной подписки:</strong>{{ subscription.description }}</p>
+        <div class="subscription-detail__info">
+            <h3 class="subscription-detail__title">Что входит в подписку</h3>
+            <p class="subscription-detail__address">
+                {{ subscription.сomponents|linebreaks }}
+            </p>
+        </div>
+        <div class="subscription-detail__info">
+            <h3 class="subscription-detail__title">Контакты</h3>
+            <ul class="subscription-detail__address">
+                <li>Адрес: {{ subscription.address }}</li>
+                <li>Телефон службы поддержки: <span style="color: rgb(0, 46, 251);">{{ subscription.phone }}</span></li>
+                <li>E-mail: <span style="color: rgb(0, 46, 251);">{{ subscription.email }}</span></li>
+            </ul>
+        </div>
+        <a href="{{subscription.subscription }}" class="dark-button">Оформить подписку</a>
+    </div>
+</section>
+{% else %}
+<section class="access">
+    <div class="container">
+        <h1 class="title">Вы не зарегистрированы</h1>
+        <p class="dark-text">Что бы продолжить использовать приложение, пожалуйста зарегестрируйтесь, и пройдите авторизацию</p>
+        <div class="access-action">
+            <a href="{% url 'sign_up_page' %}" class="dark-button">Регистрация</a>
+            <a href="{% url 'login_page' %}" class="dark-button">Авторизация</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

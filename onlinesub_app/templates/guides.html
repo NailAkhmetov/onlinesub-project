@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Гайды{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<section class="subscriptions">
+    <div class="container">
+        <h2 class = "title">Гайды</h2>
+        <div class="subscriptions-list">
+            {% for guide in guides %}
+            <div class="subscription-card">
+                <h3 class="subscription-card__title"><strong>{{ guide.title}}</strong></h3>
+                <h3 class="subscription-card__company">{{ guide.opisanie }}</h3>
+                <h3 class="subscription-card__title">{{ guide.prodopisanie }}</h3>
+                <a href="{% url 'guide_detail_page' pk=guide.pk %}" class="dark-button">Читать</a>
+            </div>
+            {% endfor %}
+        </div>
+        <p style="text-align: center; font-size: 11px; color: rgba(221, 212, 212, 0.633);">Остались вопросы? Пиши в нашу службу поддержки клиентов на почту: <span style="color: rgb(0, 46, 251);">@ahmetovip4.0@gmail.com</span></p>
+    </div>
+</section>
+{% else %}
+<section class="access">
+    <div class="container">
+        <h1 class="title">Вы не зарегистрированы</h1>
+        <p class="dark-text">Что бы продолжить использовать приложение, пожалуйста зарегестрируйтесь, и пройдите авторизацию</p>
+        <div class="access-action">
+            <a href="{% url 'sign_up_page' %}" class="dark-button">Регистрация</a>
+            <a href="{% url 'login_page' %}" class="dark-button">Авторизация</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

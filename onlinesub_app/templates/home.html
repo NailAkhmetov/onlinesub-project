@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+<section class="categories">
+    <div class="container">
+        <h2 class="title">Категории Подписок</h2>
+        <div class="categories-list">
+            <a href="{% url 'subscriptions_page' %}" class="category-item">Все</a>
+            {% for category in categories %}
+            <a href="{% url 'subscriptions_by_category_page' slug=category.slug %}" class="category-item">{{ category.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<section class="subscriptions">
+    <div class="container">
+        <h2 class = "title">Актуальные подписки</h2>
+        <div class="subscriptions-list">
+            {% for subscription in subscriptions %}
+            <div class="subscription-card" style="background-image: url('{{ subscription.image_background }}'); background-size: cover; background-position: 65px;">
+                <h3 class="subscription-card__title">{{subscription.title}}</h3>
+                <h3 class="subscription-card__company">{{subscription.period}}</h3>
+                <h3 class="subscription-card__title">{{subscription.cost}} &#36;</h3>
+                <a href="{% url 'subscription_detail_page' pk=subscription.pk %}" class="dark-button">Просмотр</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

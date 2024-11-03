@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ guide.title }}{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<section class="subscription-detail">
+    <div class="container">
+        <h1 class="mb-30" style="text-align: center;">{{ guide.title }}</h1>
+        <img src="{{ guide.image }}" alt="{{ guide.title }}" style="width: 100%; border-radius: 10px; margin-bottom: 10px; opacity: 0.4;">
+        <p class="subscription-detail__guides" style="text-align: center; margin-bottom: 5px; line-height: 2;"> 
+            {{ guide.discription }}
+        </p>
+            <p style="text-align: center; font-size: 11px; color: rgba(221, 212, 212, 0.633);">{{ guide.created_at|date:"d.m.Y" }}</p>
+        
+    </div>
+</section>
+{% else %}
+<section class="access">
+    <div class="container">
+        <h1 class="title">Вы не зарегистрированы</h1>
+        <p class="dark-text">Что бы продолжить использовать приложение, пожалуйста зарегестрируйтесь, и пройдите авторизацию</p>
+        <div class="access-action">
+            <a href="{% url 'sign_up_page' %}" class="dark-button">Регистрация</a>
+            <a href="{% url 'login_page' %}" class="dark-button">Авторизация</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
